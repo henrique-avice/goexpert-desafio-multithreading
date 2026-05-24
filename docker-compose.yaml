@@ -1,0 +1,28 @@
+services:
+  cep-lookup:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cep-finder
+    environment:
+      - CGO_ENABLED=1
+    command: [ "-cep=29902555" ]
+    networks:
+      - cep-network
+
+  cep-lookup-example:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cep-finder-example
+    profiles:
+      - examples
+    environment:
+      - CGO_ENABLED=1
+    command: [ "-cep=01310100" ]
+    networks:
+      - cep-network
+
+networks:
+  cep-network:
+    driver: bridge
